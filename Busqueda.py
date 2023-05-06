@@ -1,7 +1,6 @@
 import os
 import time
 from datetime import datetime
-import win32api
 
 # Buscar el archivo en el directorio especificado
 def search_file_in_dir(dirname, filename, subdirs=None, extensions=None):
@@ -57,13 +56,13 @@ def search_file_in_dir(dirname, filename, subdirs=None, extensions=None):
     print(f"Tiempo transcurrido: {elapsed_time:.2f} segundos")
 
 # Buscar la cadena de texto en el directorio especificado
-def search_text_in_dir(dirname, text, subdirs=None, author=None, start_date=None, end_date=None):
+def search_text_in_dir(dirname, text, subdirs=None, start_date=None, end_date=None):
     # Si subdirs es None, buscar en todos los subdirectorios
     if subdirs is None:
         subdirs = []
     start_time = time.time()  # Tiempo inicial
     found_files = []
-    for root, dirs, files in os.walk(dirname):
+    for root, files in os.walk(dirname):
         print(f"Buscando en: {root}") # Imprime la ruta del directorio actual
         # Verificar si el directorio actual está en la lista subdirs
         if root in subdirs:
@@ -76,11 +75,9 @@ def search_text_in_dir(dirname, text, subdirs=None, author=None, start_date=None
                         if text in content:
                             # Obtener información del archivo
                             info = os.stat(filepath)
-                            file_author = win32api.GetUserNameFromSid(win32api.GetFileSecurity(filepath, win32api.OWNER_SECURITY_INFORMATION).GetSecurityDescriptorOwner())
                             file_date = datetime.fromtimestamp(info.st_mtime)
                             # Aplicar filtros de autor y fecha
-                            if (author is None or file_author == author) and \
-                               (start_date is None or file_date >= start_date) and \
+                            if (start_date is None or file_date >= start_date) and \
                                (end_date is None or file_date <= end_date):
                                 print(f"Texto encontrado en: {filepath}")
                                 found_files.append(filepath)
@@ -99,11 +96,9 @@ def search_text_in_dir(dirname, text, subdirs=None, author=None, start_date=None
                         if text in content:
                             # Obtener información del archivo
                             info = os.stat(filepath)
-                            file_author = win32api.GetUserNameFromSid(win32api.GetFileSecurity(filepath, win32api.OWNER_SECURITY_INFORMATION).GetSecurityDescriptorOwner())
                             file_date = datetime.fromtimestamp(info.st_mtime)
                             # Aplicar filtros de autor y fecha
-                            if (author is None or file_author == author) and \
-                               (start_date is None or file_date >= start_date) and \
+                            if (start_date is None or file_date >= start_date) and \
                                (end_date is None or file_date <= end_date):
                                 print(f"Texto encontrado en: {filepath}")
                                 found_files.append(filepath)

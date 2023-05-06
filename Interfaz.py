@@ -79,11 +79,6 @@ class VentanaPrincipal:
         self.subdirectorio_entry1 = tk.Entry(ventana_busqueda_texto, width=50)
         self.subdirectorio_entry1.grid(row=2, column=1, padx=10, pady=10)
 
-        autor_label = tk.Label(ventana_busqueda_texto, text="Autor:")
-        autor_label.grid(row=3, column=0, padx=10, pady=10)
-        self.autor_entry1 = tk.Entry(ventana_busqueda_texto, width=50)
-        self.autor_entry1.grid(row=3, column=1, padx=10, pady=10)
-
         fecha_label = tk.Label(ventana_busqueda_texto, text="Fecha Aproximada:")
         fecha_label.grid(row=4, column=0, padx=10, pady=10)
         self.fecha_entry12 = tk.Entry(ventana_busqueda_texto, width=25)
@@ -101,11 +96,10 @@ class VentanaPrincipal:
         Texto = self.texto_entry1.get()
         Directorio = self.directorio_entry.get()
         Subdirectorio = self.subdirectorio_entry1.get()
-        Autor = self.autor_entry1.get()
         fecha_Inicio = self.fecha_entry12.get()
         Fecha_Fin = self.fecha_entry21.get()
 
-        path=Busqueda.search_text_in_dir(Directorio,Texto,Subdirectorio,Autor,fecha_Inicio,Fecha_Fin)
+        path=Busqueda.search_text_in_dir(Directorio,Texto,Subdirectorio,fecha_Inicio,Fecha_Fin)
         self.ventana_encontrar=tk.Tk()
         mostrar=tk.Label(self.ventana_encontrar,text=f"Texto encontrado en: {path}")
         mostrar.grid(row=3, column=0, padx=10, pady=10)
